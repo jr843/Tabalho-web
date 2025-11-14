@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardápio - Versão Melhorada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <style>
+    /* ===== Página ===== */
+    :root{
+      --accent-1:#6a1b9a;
+      --accent-2:#ff8c00;
+      --card-bg:#fffbf0;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:'Poppins',sans-serif; background:linear-gradient(115deg,var(--accent-1),var(--accent-2)); min-height:100vh; color:#222;
+    }
+
+    /* ===== Container do cardápio ===== */
+    .cardapio-container{
+      max-width:920px; margin:40px auto; padding:40px; background:#fff; border-radius:18px; position:relative; box-shadow:0 20px 50px rgba(106,27,154,.25);
+    }
+    .cardapio-container::before{
+      content:''; position:absolute; inset:15px; border:6px double var(--accent-1); border-bottom-color:var(--accent-2); border-right-color:var(--accent-2); border-radius:8px; pointer-events:none;
+    }
+    header{display:flex; align-items:center; justify-content:space-between; gap:16px}
+    header h1{color:var(--accent-1); margin:0}
+
+    /* ===== Seção e grid ===== */
+    .menu-section{margin-top:28px}
+    .menu-section h2{background:linear-gradient(115deg,var(--accent-2),#ffb300); color:#fff; padding:10px 16px; border-radius:8px; font-size:1.2rem; text-transform:uppercase; margin:0 0 16px}
+
+    .menu-items{display:grid; grid-template-columns:repeat(2,1fr); gap:20px}
+
+    /* ===== Card do item ===== */
+    .menu-item{
+      background:var(--card-bg); border-radius:14px; padding:18px 18px 18px 140px; position:relative; overflow:visible; box-shadow:0 6px 14px rgba(0,0,0,0.08); border:2px solid transparent; transition:transform .22s,box-shadow .22s,border-color .22s;
+      min-height:110px;
+    }
+    .menu-item:hover{transform:translateY(-4px); box-shadow:0 10px 22px rgba(0,0,0,0.12); border-color:var(--accent-1)}
+
+    /* ===== Miniatura (imagem) fora do card ===== */
+    .menu-item .thumb{
+      position:absolute; left:18px; top:50%; transform:translateY(-50%); width:104px; height:104px; border-radius:12px; object-fit:cover; box-shadow:0 8px 18px rgba(0,0,0,0.18); border:4px solid #fff;
+    }
+
+    .menu-item h3{margin:0 0 8px; color:var(--accent-1); font-size:1.1rem; display:flex; gap:10px; align-items:center}
+    .menu-item h3 i{color:var(--accent-2); font-size:1.1rem}
+    .menu-item p{margin:0 0 10px; color:#444; font-size:.95rem}
+    .menu-item .price{font-weight:700; color:var(--accent-2); font-size:1rem}
+
+    /* ===== Fallback quando não há imagem (alinha o conteúdo) ===== */
+    .menu-item.no-thumb{padding-left:20px}
+    .menu-item.no-thumb .thumb{display:none}
+
+    /* ===== Botão de login fixo ===== */
+    #botaoLogin{position:fixed; top:18px; right:18px; background:var(--accent-1); color:#fff; border:none; padding:10px 18px; border-radius:12px; font-weight:600; cursor:pointer; z-index:1200}
+
+    /* ===== Responsividade ===== */
+    @media (max-width:900px){
+      .menu-items{grid-template-columns:1fr}
+      .menu-item{padding-left:126px}
+    }
+    @media (max-width:520px){
+      .cardapio-container{margin:16px; padding:18px}
+      .menu-item{padding:14px; display:block}
+      .menu-item .thumb{position:static; transform:none; width:100%; height:160px; margin-bottom:10px; border-radius:10px}
+    }
+  </style>
+</head>
+<body>
+  <div class="cardapio-container">
+    <header>
+      <h1>Cardápio UniFacimp</h1>
+      <button id="botaoLogin" onclick="window.location.href='loginmenu.html'">Entrar</button>
+    </header>
+
+    <section class="menu-section">
+      <h2>Lanches e Salgados</h2>
+      <div class="menu-items">
+        <!-- Exemplo de item com imagem (imagem "fora" do corpo do card) -->
+      
+                        <div class="menu-item">
+                          <img class="thumb" src="cachorro quente.jpg" alt="Cachorro quente- miniatura" loading="lazy"> 
+                    <h3><i class="fas fa-utensils"></i> Cachorro Quente</h3>
+                    <p> Molho de Carne moída, Salsicha, e Batata Palha </p>
+                    <span class="price">R$ 8,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="coxinha.jpg" alt="Coxinha- miniatura" loading="lazy"> 
+                    <h3><i class="fas fa-utensils"></i> Coxinha</h3>
+                    <p>Sabores: Frango</p>
+                    <span class="price">R$ 5,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="fts/empada.jpg" alt="Empada- miniatura" loading="lazy"> 
+                    <h3><i class="fas fa-utensils"></i> Empada</h3>
+                    <p>Sabores: Frango</p>
+                    <span class="price">R$ 7,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="esfirra.jpg" alt="Esfirra - miniatura" loading="lazy">
+                    <h3><i class="fas fa-utensils"></i> Esfirra</h3>
+                    <p>Sabores: Carne</p>
+                    <span class="price">R$ 7,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="espetinho.jpg" alt="Espetinho- miniatura" loading="lazy">
+                    <h3><i class="fas fa-utensils"></i> Espetinho</h3>
+                    <p>Sabores: Carne</p>
+                    <span class="price">R$ 12,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="lanchão.jpg" alt="Torta de Frango- miniatura" loading="lazy">
+                    <h3><i class="fas fa-utensils"></i> Lanchão</h3>
+                    <p>Presunto, Queijo e Pão</p>
+                    <span class="price">R$ 8,00</span>
+                </div>
+                
+                <div class="menu-item">
+                  <img class="thumb" src="2b1661d6-5ddc-4387-998e-9cf1a11c00d8.jpg" alt="mini pizza- miniatura" loading="lazy">
+                    <h3><i class="fas fa-utensils"></i> Mini-Pizza</h3>
+                    <p>Sabores: Frango e Calabresa</p>
+                    <span class="price">R$ 10,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="panqueca.jpg" alt="panqueca- miniatura" loading="lazy">
+                    <h3><i class="fas fa-utensils"></i> Panqueca</h3>
+                    <p>Sabores: Frango</p>
+                    <span class="price">R$ 8,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="cc97b0f8-9a1d-4025-b945-2541b30bd2f1.jpg" alt="pastel- miniatura" loading="lazy">
+                    <h3><i class="fas fa-utensils"></i> Pastel</h3>
+                    <p>Sabores: Carne</p>
+                    <span class="price">R$ 5,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="f2c53630-20d9-489b-800a-a1c9cc3ef797.jpg" alt="salgado- miniatura" loading="lazy">
+                    <h3><i class="fas fa-utensils"></i> Salgado</h3>
+                    <p>Sabores: Misto e Salsicha</p>
+                    <span class="price">R$ 5,00</span>
+                </div>                
+                <div class="menu-item">
+                  <img class="thumb" src="sanduíche natural.jpg" alt="Sanduiche natural- miniatura" loading="lazy">
+                    <h3><i class="fas fa-utensils"></i> Sanduíche natural</h3>
+                    <p>Pão integral, Creme de Frango, Cenoura e Alface</p>
+                    <span class="price">R$ 7,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="torta de frango.jpg" alt="Torta de Frango- miniatura" loading="lazy">
+                    <h3><i class="fas fa-utensils"></i> Torta Assada</h3>
+                    <p>Sabores: Frango</p>
+                    <span class="price">R$ 8,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="x-tudo.jpg" alt="Torta de Frango- miniatura" loading="lazy">
+                    <h3><i class="fas fa-utensils"></i> X-Tudo</h3>
+                    <p>Pão de Hambúrguer, Hambúrguer, Salsicha, Alface, Tomate, Bacon, Presunto e Queijo</p>
+                    <span class="price">R$ 12,00</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <h2>Sobremesas</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                  <img class="thumb" src="fts/bolo no pote.jpg" alt="bolo no pote- miniatura" loading="lazy">
+                    <h3><i class="fas fa-ice-cream"></i> Bolo no Pote</h3>
+                    <p>Bolo no Pote de Chocolate com Creme Branco </p>
+                    <span class="price">R$ 6,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="fts/musse.jpg" alt="mousse- miniatura" loading="lazy">
+                    <h3><i class="fas fa-ice-cream"></i> Mousses </h3>
+                    <p> Sabores: Morango e Maracujá</p>
+                    <span class="price">R$ 6,00</span>
+                </div>
+                <div class="menu-item">
+                  <img class="thumb" src="fts/pudim.jpg" alt="pudim- miniatura" loading="lazy">
+                    <h3><i class="fas fa-ice-cream"></i> Fatia de Pudim</h3>
+                    <p> Fatia de Pudim Tradicional de Leite Condensado.</p>
+                    <span class="price">R$ 6,00-</span>
+                </div>
+                <div class="menu-item">
+                   <img class="thumb" src="fts/pave.jpg" alt="pave- miniatura" loading="lazy">
+                    <h3><i class="fas fa-ice-cream"></i> Pote de Pavê</h3>
+                    <p> Pavê tradicional: Creme Branco, Biscoito Maizena e Brigadeiro.</p>
+                    <span class="price">R$ 6,00</span>
+                </div>
+                <div class="menu-item">
+                   <img class="thumb" src="fts/picole.jpg" alt="Sorvetes e picole- miniatura" loading="lazy">
+                    <h3><i class="fas fa-ice-cream"></i> Sorvetes e Picolés </h3>
+                    <p>Opções no balcão (valores variados)</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <h2>Bebidas</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                   <img class="thumb" src="fts/refri200ml.jpg" alt="refrigerantes 220ml- miniatura" loading="lazy">
+                    <h3><i class="fas fa-glass-whiskey"></i>Refrigerante Pet 220ml</h3>
+                    <p>Coca-Cola (Normal e Zero), Guaraná Jesus, Pepsi, Fanta laranja, Fanta uva e Sprite</p>
+                    <span class="price">R$ 4,00</span>
+                </div>
+                <div class="menu-item">
+                   <img class="thumb" src="fts/refri350ml.jpg" alt="refrigerante lata - miniatura" loading="lazy">
+                    <h3><i class="fas fa-glass-whiskey"></i>Refrigerante lata 350ml</h3>
+                    <p>Coca-Cola (Normal e zero), Guaraná Jesus, Pepsi, (Fanta Laranja e Uva) e Sprite</p>
+                    <span class="price">R$ 6,00</span>
+                </div>
+                <div class="menu-item">
+                     <img class="thumb" src="fts/copo de suco 180ml(2).jpg" alt="copo de suco 180- miniatura" loading="lazy">
+                    <h3><i class="fas fa-glass-whiskey"></i>Copo de Suco 180ml</h3>
+                    <p>Laranja, Acerola e Cajá </p>
+                    <span class="price">R$ 4,00</span>
+                </div>
+                <div class="menu-item">
+                   <img class="thumb" src="fts/copo de suco 300ml (1).jpg" alt="copo de suco 300 - miniatura" loading="lazy">
+                    <h3><i class="fas fa-glass-whiskey"></i>Copo de Suco 300ml</h3>
+                    <p>Laranja, Acerola e Cajá</p>
+                    <span class="price">R$ 5,00</span>
+                </div>
+                <div class="menu-item">
+                   <img class="thumb" src="fts/h2o.jpg" alt="H2O- miniatura" loading="lazy">
+                    <h3><i class="fas fa-glass-whiskey"></i>H2O 500ml</h3>
+                    <p>Tradicional</p>
+                    <span class="price">R$ 7,00</span>
+                </div>
+                <div class="menu-item">
+                   <img class="thumb" src="fts/agua com gás.jpg" alt="agua com gás- miniatura" loading="lazy">
+                    <h3><i class="fas fa-glass-whiskey"></i>Água 500ml</h3>
+                    <p>Com gás</p>
+                    <span class="price">R$ 4,00</span>
+                </div>
+                <div class="menu-item">
+                   <img class="thumb" src="fts/nescau180ml.jpg" alt="nescau 180- miniatura" loading="lazy">
+                    <h3><i class="fas fa-glass-whiskey"></i>Nescau</h3>
+                    <p>Achocolatado</p>
+                    <span class="price">R $3,50</span>
+                </div>
+                <div class="menu-item">
+                   <img class="thumb" src="fts/monster.jpg" alt="monster- miniatura" loading="lazy">
+                    <h3><i class="fas fa-glass-whiskey"></i>Energético Monster 500ml</h3>
+                    <p>Tradicional</p>
+                    <span class="price">R$ 15,00</span>
+                </div>
+                <div class="menu-item">
+                   <img class="thumb" src="fts/red bull.jpg" alt="red bull- miniatura" loading="lazy">
+                    <h3><i class="fas fa-glass-whiskey"></i>Energético RedBull 350m</h3>
+                    <p>Tradicional, Pomelo edition, Pêssego edition, Amora edition e Melão edition</p>
+                    <span class="price">R$ 14,00</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+        <!-- Repita para os demais itens mantendo a estrutura -->
+      </div>
+    </section>
+
+    <!-- Outras seções mantêm a mesma estrutura -->
+
+  </div>
+
+  <script>
+    // Script simples: remove quebras de imagem inválidas e adiciona fallback
+    document.querySelectorAll('.thumb').forEach(img=>{
+      img.addEventListener('error',()=>{
+        img.style.display='none';
+        img.closest('.menu-item').classList.add('no-thumb');
+      });
+    });
+  </script>
+</body>
+</html>
