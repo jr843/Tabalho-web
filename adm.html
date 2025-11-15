@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área dos Administradores - Cardápio UniFacimp</title>
+    <style>
+     /* ESTILOS GERAIS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            color: #6a1b9a;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #6512ca;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        
+        /* CONTAINER PRINCIPAL */
+        #cardapio-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        /* CATEGORIAS */
+        .categoria {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* ITENS DO CARDÁPIO */
+        .cardapio-item {
+            border: 1px solid #632aa9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .cardapio-item:hover {
+            box-shadow: 0 4px 8px #6a1b96(135, 32, 158, 0.15);
+        }
+        
+        .item-info {
+            flex-grow: 1;
+        }
+        
+        .cardapio-item h3 {
+            margin: 0 0 5px 0;
+            color: #fefefeee;
+            font-size: 1.1em;
+        }
+        
+        .cardapio-item .preco {
+            color:#f1f1f3;
+            font-weight: bold;
+        }
+        
+        .cardapio-item .status {
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        /* ESTADOS DE DISPONIBILIDADE */
+        .disponivel {
+            background-color: #5df380;
+            border-color: #177d2f;
+        }
+        
+        .disponivel .status {
+            color: #0a952a;
+        }
+        
+        .indisponivel {
+            background-color: #ff3a4a;
+            border-color: #e74354;
+        }
+        
+        .indisponivel .status {
+            color: #c10101;
+        }
+        
+        /* BOTÕES */
+        button {
+            padding: 8px 16px;
+            margin-left: 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+        
+        .disponivel button {
+            background-color: #2fd016;
+            color: white;
+        }
+        
+        .disponivel button:hover {
+            background-color: #35c608;
+        }
+        
+        .indisponivel button {
+            background-color: #a50303;
+            color: rgb(255, 253, 253);
+        }
+        
+        .indisponivel button:hover {
+            background-color: #f40909;
+        }
+        
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .cardapio-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            button {
+                margin: 10px 0 0 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Controle do Cardápio - Área Administrativa</h1>
+    <div id="cardapio-container">
+        <!-- Os itens do cardápio serão inseridos aqui via JavaScript -->
+    </div>
+
+    <script>
+        // Dados completos do cardápio com IDs únicos
+        const cardapioInicial = [
+            // LANCHES SALGADOS
+            { id: 1, nome: "Cachorro quente", preco: "R$ 8,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 2, nome: "Coxinha de frango", preco: "R$ 5,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 3, nome: "Empada", preco: "R$ 7,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 4, nome: "Esfirra", preco: "R$ 7,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 5, nome: "Espetinho de carne", preco: "R$ 12,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 6, nome: "Lanchão (presunto e queijo)", preco: "R$ 8,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 7, nome: "Mini pizza", preco: "R$ 10,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 8, nome: "Panqueca de Frango", preco: "R$ 8,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 9, nome: "Pastel de carne", preco: "R$ 5,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 10, nome: "Salgado de presunto e queijo", preco: "R$ 5,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 11, nome: "Salgado de salsicha", preco: "R$ 5,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 12, nome: "Sanduíche natural", preco: "R$ 7,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 13, nome: "Torta assada", preco: "R$ 8,00", categoria: "Lanches e Salgados", disponivel: true },
+            { id: 14, nome: "X-Tudo", preco: "R$ 12,00", categoria: "Lanches e Salgados", disponivel: true },
+            
+            // DOCES E SOBREMESAS
+            { id: 15, nome: "Bolo no pote chocolate com creme branco", preco: "R$ 6,00", categoria: "Doces e Sobremesas", disponivel: true },
+            { id: 16, nome: "Mousse de maracujá", preco: "R$ 6,00", categoria: "Doces e Sobremesas", disponivel: true },
+            { id: 17, nome: "Mousse de morango", preco: "R$ 6,00", categoria: "Doces e Sobremesas", disponivel: true },
+            { id: 18, nome: "Pote de Pavê", preco: "R$ 6,00", categoria: "Doces e Sobremesas", disponivel: true },
+            { id: 19, nome: "Fatia de Pudim", preco: "R$ 6,00", categoria: "Doces e Sobremesas", disponivel: true },
+            
+            
+            // BEBIDAS
+            { id: 20, nome: "Refrigerante pet 220ml (Coca-Cola Zero, Jesus, Pepsi, Fanta Laranja, Fanta Uva, Sprite)", preco: "R$ 4,00", categoria: "Bebidas", disponivel: true },
+            { id: 21, nome: "Refrigerante lata 350ml (Coca-Cola Zero, Coca-Cola, Pepsi, Fanta)", preco: "R$ 6,00", categoria: "Bebidas", disponivel: true },
+            { id: 22, nome: "Copo de suco R$ 4,00 (Laranja, Acerola, Cajá)", preco: "R$ 4,00", categoria: "Bebidas", disponivel: true },
+            { id: 23, nome: "Copo de suco R$ 5,00 (Laranja, Acerola, Cajá)", preco: "R$ 5,00", categoria: "Bebidas", disponivel: true },
+            { id: 24, nome: "H2O 500ml", preco: "R$ 7,00", categoria: "Bebidas", disponivel: true },
+            { id: 25, nome: "Água com gás", preco: "R$ 4,00", categoria: "Bebidas", disponivel: true },
+            { id: 26, nome: "Nescau Achocolatado 200ml", preco: "R$ 3,50", categoria: "Bebidas", disponivel: true },
+            { id: 27, nome: "Energético Monster 500ml", preco: "R$ 15,00", categoria: "Bebidas", disponivel: true },
+            { id: 28, nome: "Energético RedBull 350ml", preco: "R$ 14,00", categoria: "Bebidas", disponivel: true }
+        ];
+
+        // Inicializar cardapio
+        let cardapio = [...cardapioInicial];
+
+        function renderCardapio() {
+            const container = document.getElementById('cardapio-container');
+            container.innerHTML = '';
+
+            // Agrupar itens por categoria
+            const categorias = {};
+            cardapio.forEach(item => {
+                if (!categorias[item.categoria]) {
+                    categorias[item.categoria] = [];
+                }
+                categorias[item.categoria].push(item);
+            });
+
+            // Renderizar cada categoria
+            Object.keys(categorias).forEach(categoria => {
+                const categoriaDiv = document.createElement('div');
+                categoriaDiv.className = 'categoria';
+                
+                const titulo = document.createElement('h2');
+                titulo.textContent = categoria;
+                categoriaDiv.appendChild(titulo);
+
+                categorias[categoria].forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = `cardapio-item ${item.disponivel ? 'disponivel' : 'indisponivel'}`;
+                    
+                    itemDiv.innerHTML = `
+                        <div class="item-info">
+                            <h3>${item.nome}</h3>
+                            <div class="preco">${item.preco}</div>
+                            <div class="status">Status: ${item.disponivel ? 'Disponível' : 'Indisponível'}</div>
+                        </div>
+                        <button onclick="toggleDisponibilidade(${item.id})">
+                            ${item.disponivel ? 'Marcar como Indisponível' : 'Marcar como Disponível'}
+                        </button>
+                    `;
+                    
+                    categoriaDiv.appendChild(itemDiv);
+                });
+
+                container.appendChild(categoriaDiv);
+            });
+        }
+
+        function toggleDisponibilidade(id) {
+            const item = cardapio.find(item => item.id === id);
+            if (item) {
+                item.disponivel = !item.disponivel;
+                renderCardapio();
+                salvarAlteracoes();
+            }
+        }
+
+        function salvarAlteracoes() {
+            localStorage.setItem('cardapio', JSON.stringify(cardapio));
+        }
+
+        function carregarDadosSalvos() {
+            try {
+                const dadosSalvos = localStorage.getItem('cardapio');
+                if (dadosSalvos) {
+                    const cardapioSalvo = JSON.parse(dadosSalvos);
+                    
+                    // Mesclar dados salvos com estrutura inicial
+                    cardapio = cardapioInicial.map(itemInicial => {
+                        const itemSalvo = cardapioSalvo.find(item => item.id === itemInicial.id);
+                        return itemSalvo ? { ...itemInicial, disponivel: itemSalvo.disponivel } : itemInicial;
+                    });
+                }
+            } catch (e) {
+                console.error('Erro ao carregar dados:', e);
+                // Se der erro, usa os dados iniciais
+                cardapio = [...cardapioInicial];
+            }
+            renderCardapio();
+        }
+
+        // Carregar dados salvos ao iniciar
+        document.addEventListener('DOMContentLoaded', carregarDadosSalvos);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
